@@ -28,16 +28,16 @@ interface Props {
 }
 
 const radarData = [
-  { subject: 'Self-Direction', A: 85, B: 80 },
-  { subject: 'Stimulation', A: 80, B: 70 },
-  { subject: 'Hedonism', A: 50, B: 40 },
-  { subject: 'Achievement', A: 95, B: 90 },
-  { subject: 'Power', A: 90, B: 85 },
-  { subject: 'Security', A: 70, B: 75 },
-  { subject: 'Conformity', A: 55, B: 50 },
-  { subject: 'Tradition', A: 40, B: 45 },
-  { subject: 'Benevolence', A: 15, B: 30 },
-  { subject: 'Universalism', A: 50, B: 65 },
+  { subject: 'Self-Direction', DraftA: 85, DraftB: 75, Target: 80 },
+  { subject: 'Stimulation', DraftA: 80, DraftB: 90, Target: 85 },
+  { subject: 'Hedonism', DraftA: 50, DraftB: 45, Target: 40 },
+  { subject: 'Achievement', DraftA: 95, DraftB: 85, Target: 90 },
+  { subject: 'Power', DraftA: 90, DraftB: 80, Target: 85 },
+  { subject: 'Security', DraftA: 70, DraftB: 85, Target: 75 },
+  { subject: 'Conformity', DraftA: 55, DraftB: 65, Target: 50 },
+  { subject: 'Tradition', DraftA: 40, DraftB: 60, Target: 45 },
+  { subject: 'Benevolence', DraftA: 15, DraftB: 40, Target: 30 },
+  { subject: 'Universalism', DraftA: 50, DraftB: 70, Target: 60 },
 ];
 
 export default function Stage4Feedback({ onBack, onReset }: Props) {
@@ -54,26 +54,33 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
       {/* Summary Banner */}
       <header className="relative rounded-3xl overflow-hidden bg-white shadow-2xl shadow-primary/5 border border-slate-100">
         <div className="h-40 w-full relative">
-          <img 
-            className="w-full h-full object-cover opacity-40" 
-            src="https://picsum.photos/seed/abstract/1200/400" 
-            referrerPolicy="no-referrer"
-          />
+          <div className="absolute inset-0 flex">
+            <img 
+              className="w-1/2 h-full object-cover opacity-20 border-r border-white/50" 
+              src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000" 
+              referrerPolicy="no-referrer"
+            />
+            <img 
+              className="w-1/2 h-full object-cover opacity-20" 
+              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" 
+              referrerPolicy="no-referrer"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent"></div>
         </div>
         <div className="px-10 pb-10 -mt-12 relative z-10">
           <div className="inline-block px-5 py-1.5 bg-white rounded-full border border-primary/20 text-primary font-bold text-[10px] tracking-widest uppercase shadow-sm mb-4">
-            Value Alignment Report
+            TAB 2026 Comparative Analysis
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight max-w-3xl leading-tight">
-            Design reinforces technological authority, but <span className="text-primary italic">overemphasizes abstraction over accessibility.</span>
+            Draft A reinforces <span className="text-primary italic">Analytical Rigor</span>, while Draft B achieves higher <span className="text-secondary italic">Global Resonance.</span>
           </h1>
         </div>
       </header>
 
       {/* Analysis Tabs */}
       <div className="flex justify-center mb-4">
-        <div className="flex bg-slate-100/50 p-1 rounded-2xl border border-slate-200/50 w-full max-w-sm">
+        <div className="flex bg-slate-100/50 p-1 rounded-2xl border border-slate-200/50 w-full max-w-md">
           <button 
             onClick={() => setActiveTab('value')}
             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold transition-all ${
@@ -83,7 +90,7 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             }`}
           >
             <Brain className="w-4 h-4" />
-            Value Analysis
+            Comparison Map
           </button>
           <button 
             onClick={() => setActiveTab('visual')}
@@ -94,7 +101,7 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             }`}
           >
             <Palette className="w-4 h-4" />
-            Visual Design
+            Visual Resonance
           </button>
         </div>
       </div>
@@ -114,38 +121,53 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
                 <div className="flex justify-between items-start mb-12">
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-2 block">Value Alignment Analysis</span>
-                    <h2 className="text-2xl font-extrabold text-slate-800">Dimensional Conflict Map</h2>
+                    <h2 className="text-2xl font-extrabold text-slate-800">Draft Comparison Radar</h2>
                   </div>
-                  <div className="text-right">
-                    <div className="text-5xl font-black text-primary tracking-tighter">78%</div>
-                    <div className="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Alignment Score</div>
+                  <div className="flex gap-4">
+                    <div className="text-right">
+                      <div className="text-2xl font-black text-primary tracking-tighter">84%</div>
+                      <div className="text-[8px] font-bold uppercase text-slate-400 tracking-widest">Draft A Index</div>
+                    </div>
+                    <div className="w-px h-10 bg-slate-100" />
+                    <div className="text-right">
+                      <div className="text-2xl font-black text-secondary tracking-tighter">91%</div>
+                      <div className="text-[8px] font-bold uppercase text-slate-400 tracking-widest">Draft B Index</div>
+                    </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col md:flex-row items-center gap-12">
-                  <div className="relative w-72 h-72 shrink-0">
+                  <div className="relative w-80 h-80 shrink-0">
                     <ResponsiveContainer width="100%" height="100%">
                       <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                         <PolarGrid stroke="#e2e8f0" strokeDasharray="3 3" />
                         <PolarAngleAxis 
                           dataKey="subject" 
-                          tick={{ fill: '#94a3b8', fontSize: 9, fontWeight: 900 }}
+                          tick={{ fill: '#94a3b8', fontSize: 8, fontWeight: 900 }}
                         />
                         <Radar
-                          name="Intended"
-                          dataKey="B"
-                          stroke="#3366ff"
-                          strokeWidth={2}
+                          name="Target Alignment"
+                          dataKey="Target"
+                          stroke="#cbd5e1"
+                          strokeWidth={1}
                           strokeDasharray="4 4"
                           fill="none"
                         />
                         <Radar
-                          name="Expressed"
-                          dataKey="A"
+                          name="Draft A"
+                          dataKey="DraftA"
                           stroke="#3366ff"
-                          strokeWidth={3}
+                          strokeWidth={2}
                           fill="#3366ff"
-                          fillOpacity={0.15}
+                          fillOpacity={0.1}
+                        />
+                        <Radar
+                          name="Draft B"
+                          dataKey="DraftB"
+                          stroke="#00d68f"
+                          strokeWidth={2}
+                          fill="#00d68f"
+                          fillOpacity={0.1}
                         />
                       </RadarChart>
                     </ResponsiveContainer>
@@ -154,47 +176,81 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
                   <div className="flex-1 space-y-6">
                     <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner">
                       <p className="text-sm font-medium text-slate-600 leading-relaxed">
-                        <span className="text-primary font-black uppercase text-[10px] tracking-widest mr-2">Insight:</span> 
-                        The design strongly reinforces technological authority and analytical precision, but slightly overemphasizes abstraction, creating a sense of distance rather than accessibility.
+                        <span className="text-primary font-black uppercase text-[10px] tracking-widest mr-2">Core Insight:</span> 
+                        Draft B demonstrates a superior balance between <span className="font-bold text-slate-800">Analytical Depth</span> and <span className="font-bold text-slate-800">Universal Accessibility</span>, aligning more closely with the TAB 2026 goal of global leadership awareness.
                       </p>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
-                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Intended Focus</div>
-                        <div className="text-sm font-extrabold text-slate-800">Achievement</div>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Innovation (Stimulation)</span>
+                        <div className="flex items-center gap-4">
+                          <span className="text-xs font-bold text-primary">A: 80%</span>
+                          <span className="text-xs font-bold text-secondary">B: 90%</span>
+                        </div>
                       </div>
-                      <div className="p-5 bg-white rounded-2xl border border-primary/10 shadow-sm">
-                        <div className="text-[9px] font-black uppercase tracking-widest text-primary mb-1">Actual Focus</div>
-                        <div className="text-sm font-extrabold text-slate-800">Achievement (High)</div>
+                      <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Authority (Power)</span>
+                        <div className="flex items-center gap-4">
+                          <span className="text-xs font-bold text-primary">A: 90%</span>
+                          <span className="text-xs font-bold text-secondary">B: 80%</span>
+                        </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+
+                <div className="mt-10 flex gap-8 justify-center">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-primary" />
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Manuscript A</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-secondary" />
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Manuscript B</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-1 border-t border-dashed border-slate-300" />
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Summit Target</span>
                   </div>
                 </div>
               </section>
 
               {/* Sidebar */}
-              <aside className="lg:col-span-4">
+              <aside className="lg:col-span-4 space-y-6">
                 <div className="bg-white rounded-3xl p-8 shadow-xl shadow-primary/5 border border-slate-100 h-full">
-                  <h3 className="text-lg font-extrabold mb-8 text-slate-800">Critical Gaps</h3>
+                  <h3 className="text-lg font-extrabold mb-8 text-slate-800">Critical Differences</h3>
                   <div className="space-y-8">
                     <div>
                       <div className="flex items-center gap-2 mb-4">
-                        <TrendingDown className="text-primary w-4 h-4" />
-                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Under-Expressed</span>
+                        <TrendingUp className="text-primary w-4 h-4" />
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Draft A Strengths</span>
                       </div>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-4 py-1.5 bg-primary/5 text-primary text-[10px] font-black rounded-full border border-primary/10">Universalism (-10%)</span>
-                        <span className="px-4 py-1.5 bg-primary/5 text-primary text-[10px] font-black rounded-full border border-primary/10">Benevolence (-10%)</span>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                          <span>Focus & Rigor</span>
+                          <span className="text-primary text-[10px]">+15%</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                          <span>Technically Elite</span>
+                          <span className="text-primary text-[10px]">+10%</span>
+                        </div>
                       </div>
                     </div>
                     <div className="pt-6 border-t border-slate-50">
                       <div className="flex items-center gap-2 mb-4">
                         <TrendingUp className="text-secondary w-4 h-4" />
-                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Over-Expressed</span>
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Draft B Strengths</span>
                       </div>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-4 py-1.5 bg-secondary/5 text-secondary text-[10px] font-black rounded-full border border-secondary/10">Achievement (+5%)</span>
-                        <span className="px-4 py-1.5 bg-secondary/5 text-secondary text-[10px] font-black rounded-full border border-secondary/10">Stimulation (+10%)</span>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                          <span>Public Clarity</span>
+                          <span className="text-secondary text-[10px]">+20%</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                          <span>Innovation Signals</span>
+                          <span className="text-secondary text-[10px]">+10%</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -202,30 +258,30 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
               </aside>
             </div>
 
-            {/* Strategic Suggestions */}
+            {/* Strategic Comparison */}
             <section>
               <div className="flex items-center gap-6 mb-10">
-                <h2 className="text-2xl font-extrabold text-slate-800">Strategic Suggestions</h2>
+                <h2 className="text-2xl font-extrabold text-slate-800">Strategic Recommendations</h2>
                 <div className="h-px flex-1 bg-slate-200"></div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
                   { 
                     icon: Users, 
-                    title: "Improve Universalism", 
-                    desc: "Introduce more familiar visual anchors (e.g. human scale reference) and simplify structural complexity.",
+                    title: "Synthesize Assets", 
+                    desc: "Inject Draft A's authoritative central motif into Draft B's more accessible, flowing layout for maximum impact.",
                     color: "primary"
                   },
                   { 
                     icon: Brain, 
-                    title: "Balance Achievement", 
-                    desc: "Reduce excessive visual density in the center and create more breathing space to avoid cognitive overload.",
+                    title: "Tone Down Rigor", 
+                    desc: "The analytical density in Draft A is slightly too high for general audience engagement at the summit entrance.",
                     color: "secondary"
                   },
                   { 
                     icon: Wand2, 
-                    title: "Enhance Accessibility", 
-                    desc: "Add softer visual transitions or gradients and reduce overly rigid geometric dominance.",
+                    title: "Unified Palette", 
+                    desc: "Draft B's color progression aligns better with the 'Transformation' theme of TAB 2026.",
                     color: "primary"
                   }
                 ].map((item, i) => (
@@ -252,63 +308,89 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             exit={{ opacity: 0, x: -10 }}
             className="space-y-8"
           >
-            <div className="max-w-4xl mx-auto w-full">
-              <div className="bg-slate-900 text-white rounded-[40px] p-12 shadow-2xl relative overflow-hidden">
+            <div className="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Draft A Column */}
+              <div className="bg-slate-900 text-white rounded-[40px] p-10 shadow-2xl relative overflow-hidden flex flex-col">
                 <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-8">
-                    <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
-                      <Search className="w-5 h-5" />
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
+                        <Search className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-xs font-black uppercase tracking-[0.3em] text-secondary">Manuscript A</h3>
                     </div>
-                    <h3 className="text-xs font-black uppercase tracking-[0.3em] text-secondary">Visual Diagnostics</h3>
+                    <span className="px-3 py-1 bg-white/10 rounded-full text-[8px] font-black uppercase tracking-[0.2em]">High Rigor</span>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div className="space-y-10">
-                      <div className="space-y-6">
-                        <AlertCircle className="text-primary w-10 h-10" />
-                        <h4 className="text-2xl font-black tracking-tight leading-tight">
-                          Compositional <br /> 
-                          <span className="text-primary">Over-Complexity</span>
-                        </h4>
-                        <p className="text-slate-400 text-sm font-medium leading-relaxed">
-                          Central composition is visually strong but overly dense, creating a singular focal point that lacks hierarchical relief.
-                        </p>
-                      </div>
-
-                      <div className="h-px bg-white/10 w-full" />
-
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-3">
-                          <Palette className="text-primary w-5 h-5" />
-                          <span className="text-sm font-bold">Authority vs Warmth</span>
-                        </div>
-                        <p className="text-slate-400 text-sm leading-relaxed">
-                          Typography reinforces authority but significantly reduces visual warmth, distancing the observer.
-                        </p>
-                      </div>
+                  <div className="space-y-8">
+                    <div className="space-y-4">
+                      <h4 className="text-xl font-black tracking-tight leading-tight">
+                        Intellectual <span className="text-primary">Dominance</span>
+                      </h4>
+                      <p className="text-slate-400 text-xs font-medium leading-relaxed">
+                        Strong geometric symmetry creates an impression of absolute authority and technological completion.
+                      </p>
                     </div>
 
-                    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/5 space-y-6">
+                    <div className="h-px bg-white/10 w-full" />
+
+                    <div className="space-y-4">
                       <h5 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Observation Nodes</h5>
-                      <ul className="space-y-6">
+                      <ul className="space-y-4">
                         <li className="flex items-start gap-4">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shadow-[0_0_10px_rgba(51,102,255,0.5)]"></div>
-                          <span className="text-xs font-semibold text-slate-300 leading-relaxed">Lack of visual entry points for non-expert viewers</span>
+                          <div className="w-1 h-1 rounded-full bg-primary mt-2 shadow-[0_0_10px_rgba(51,102,255,0.5)]"></div>
+                          <span className="text-[11px] font-semibold text-slate-300 leading-relaxed">Rigid structure signals stability but lacks agility</span>
                         </li>
                         <li className="flex items-start gap-4">
-                          <div className="w-1.5 h-1.5 rounded-full bg-secondary mt-2 shadow-[0_0_10px_rgba(0,214,143,0.5)]"></div>
-                          <span className="text-xs font-semibold text-slate-300 leading-relaxed">High geometric dominance suppresses emotional engagement</span>
-                        </li>
-                        <li className="flex items-start gap-4">
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2"></div>
-                          <span className="text-xs font-semibold text-slate-300 leading-relaxed">Symmetry creates a formal "frozen" state instead of dynamic flow</span>
+                          <div className="w-1 h-1 rounded-full bg-primary mt-2 shadow-[0_0_10px_rgba(51,102,255,0.5)]"></div>
+                          <span className="text-[11px] font-semibold text-slate-300 leading-relaxed">Monochromatic depth enhances perceived complexity</span>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-                <Search className="absolute -right-12 -bottom-12 w-64 h-64 text-white/[0.03] pointer-events-none" />
-                <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-30 pointer-events-none"></div>
+              </div>
+
+              {/* Draft B Column */}
+              <div className="bg-slate-800 text-white rounded-[40px] p-10 shadow-2xl relative overflow-hidden flex flex-col border border-primary/20">
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center text-secondary">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-xs font-black uppercase tracking-[0.3em] text-primary">Manuscript B</h3>
+                    </div>
+                    <span className="px-3 py-1 bg-primary/20 rounded-full text-[8px] font-black uppercase tracking-[0.2em]">High Resonance</span>
+                  </div>
+                  
+                  <div className="space-y-8">
+                    <div className="space-y-4">
+                      <h4 className="text-xl font-black tracking-tight leading-tight">
+                        Fluid <span className="text-secondary">Transformations</span>
+                      </h4>
+                      <p className="text-slate-400 text-xs font-medium leading-relaxed">
+                        Abstract flow and non-linear patterns signal a more dynamic, future-oriented and experimental approach.
+                      </p>
+                    </div>
+
+                    <div className="h-px bg-white/10 w-full" />
+
+                    <div className="space-y-4">
+                      <h5 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Observation Nodes</h5>
+                      <ul className="space-y-4">
+                        <li className="flex items-start gap-4">
+                          <div className="w-1 h-1 rounded-full bg-secondary mt-2 shadow-[0_0_10px_rgba(0,214,143,0.5)]"></div>
+                          <span className="text-[11px] font-semibold text-slate-300 leading-relaxed">Organic curves increase visual 'warmth' and accessibility</span>
+                        </li>
+                        <li className="flex items-start gap-4">
+                          <div className="w-1 h-1 rounded-full bg-secondary mt-2 shadow-[0_0_10px_rgba(0,214,143,0.5)]"></div>
+                          <span className="text-[11px] font-semibold text-slate-300 leading-relaxed">Chromatic variation aligns with TAB's diverse agenda</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -325,7 +407,7 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
               <Brain className="w-5 h-5" />
             </div>
-            <span className="text-lg font-extrabold text-slate-700">View detailed feedback from AI agents</span>
+            <span className="text-lg font-extrabold text-slate-700">Comparative AI Agent Reports</span>
           </div>
           {showDetails ? <ChevronUp className="text-slate-400" /> : <ChevronDown className="text-slate-400" />}
         </button>
@@ -340,10 +422,10 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { role: "Visual Designer", icon: Brush, color: "primary", text: "The composition is highly sophisticated and visually striking. However, the density and symmetry create a somewhat overwhelming focal point." },
-                  { role: "UX Designer", icon: MousePointer2, color: "secondary", text: "The design assumes a highly literate audience. While appropriate for experts, it lacks entry points for broader understanding." },
-                  { role: "Product Manager", icon: Package, color: "primary", text: "The cover effectively communicates authority and cutting-edge research. However, it may limit reach by appearing too abstract." },
-                  { role: "Value Alignment Agent", icon: ShieldCheck, color: "slate-800", text: "The design successfully expresses achievement and innovation, but shifts away from universal accessibility." }
+                  { role: "Visual Critic", icon: Brush, color: "primary", text: "Draft A is a masterclass in grid-based power, but Draft B is what will stop a scrolling user or a passerby at a booth." },
+                  { role: "Strategy Lead", icon: MousePointer2, color: "secondary", text: "Manuscript B aligns 15% more effectively with our goal of 'Empowering the Many', reducing the perceived elite barrier." },
+                  { role: "Identity Agent", icon: Package, color: "primary", text: "The synergy of TAB 2026 requires a bridge between hard tech and human impact. B builds that bridge more effectively." },
+                  { role: "Alignment Bot", icon: ShieldCheck, color: "slate-800", text: "Draft A over-indexes on Achievement. For a summit, universal resonance (Draft B) is a higher priority meta-value." }
                 ].map((agent, i) => (
                   <div key={i} className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 relative overflow-hidden group">
                     <div className={`text-[10px] font-black uppercase text-${agent.color} mb-4 tracking-[0.2em]`}>{agent.role}</div>
@@ -364,9 +446,9 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             <Sparkles className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-xl font-extrabold text-slate-900 mb-4">Final Insight: This design does not fail — it overcommits.</h3>
+            <h3 className="text-xl font-extrabold text-slate-900 mb-4">Strategic Verdict: Manuscript B is the superior cognitive anchor.</h3>
             <p className="text-slate-600 font-medium leading-relaxed">
-              By maximizing signals of intelligence and complexity, it unintentionally narrows its audience. The system it depicts feels powerful, but not necessarily approachable. The question is no longer whether it communicates expertise, but whether it leaves room for understanding.
+              While Manuscript A is visually impeccable and technically rigorous, its cognitive 'weight' may intimidate the diverse audience of TAB 2026. Manuscript B achieves a 'low-floor, high-ceiling' resonance—accessible enough to invite interaction, but deep enough to sustain analytical credibility.
             </p>
           </div>
         </div>
@@ -383,25 +465,19 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
         <div className="flex items-center gap-4">
           <button 
             onClick={onBack}
-            className="w-14 h-14 rounded-full border border-slate-200 bg-white text-slate-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all shadow-sm"
+            className="w-14 h-14 rounded-full border border-slate-200 bg-white text-slate-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all shadow-sm group"
           >
-            <ArrowLeft className="w-6 h-6" />
+            <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
           </button>
           <button 
             onClick={onReset}
             className="px-12 py-4 value-gradient rounded-full text-white font-bold text-sm shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 group uppercase tracking-widest"
           >
-            <span>Upload New Version</span>
+            <span>Reset Analysis</span>
             <Swords className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-          <button 
-            onClick={onBack}
-            className="px-10 py-4 bg-white border border-slate-200 text-slate-600 rounded-full font-bold text-sm shadow-sm hover:border-primary hover:text-primary transition-all uppercase tracking-widest"
-          >
-            Evaluate Again
-          </button>
         </div>
-        <p className="text-primary font-bold tracking-[0.2em] text-[10px] uppercase opacity-70">Stage 4 of 4: Strategic Analysis</p>
+        <p className="text-primary font-bold tracking-[0.2em] text-[10px] uppercase opacity-70">Stage 4 of 4: Strategic Comparison Logic</p>
       </div>
     </motion.div>
   );

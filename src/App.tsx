@@ -6,10 +6,14 @@ import Stage1Discovery from './components/Stage1Discovery';
 import Stage2Evaluating from './components/Stage2Evaluating';
 import Stage3Results from './components/Stage3Results';
 import Stage4Feedback from './components/Stage4Feedback';
+import RoleSelection from './components/RoleSelection';
+import RolePlaceholder from './components/RolePlaceholder';
 
+type Role = 'designer' | 'lead' | 'organizer' | 'audience';
 type Stage = 1 | 2 | 3 | 4;
 
 export default function App() {
+  const [role, setRole] = useState<Role | null>(null);
   const [stage, setStage] = useState<Stage>(1);
 
   const nextStage = () => {
@@ -20,25 +24,42 @@ export default function App() {
     if (stage > 1) setStage((stage - 1) as Stage);
   };
 
-  const reset = () => setStage(1);
+  const resetRole = () => {
+    setRole(null);
+    setStage(1);
+  };
+
+  const resetStage = () => setStage(1);
 
   return (
     <div className="min-h-screen flex flex-col bg-background selection:bg-primary/20 selection:text-primary">
-      <Header stage={stage} onLogoClick={reset} />
+      <Header stage={stage} onLogoClick={resetRole} currentRole={role} />
       
       <main className="flex-grow flex flex-col items-center justify-center px-6 py-12">
         <AnimatePresence mode="wait">
-          {stage === 1 && (
-            <Stage1Discovery key="stage1" onNext={nextStage} />
+          {!role && (
+            <RoleSelection key="role-selection" onSelectRole={(selectedRole) => setRole(selectedRole as Role)} />
           )}
-          {stage === 2 && (
-            <Stage3Results key="stage2" onNext={nextStage} onBack={prevStage} />
+
+          {role === 'designer' && (
+            <>
+              {stage === 1 && (
+                <Stage1Discovery key="stage1" onNext={nextStage} onBack={resetRole} />
+              )}
+              {stage === 2 && (
+                <Stage3Results key="stage2" onNext={nextStage} onBack={prevStage} />
+              )}
+              {stage === 3 && (
+                <Stage2Evaluating key="stage3" onComplete={nextStage} />
+              )}
+              {stage === 4 && (
+                <Stage4Feedback key="stage4" onBack={prevStage} onReset={resetStage} />
+              )}
+            </>
           )}
-          {stage === 3 && (
-            <Stage2Evaluating key="stage3" onComplete={nextStage} />
-          )}
-          {stage === 4 && (
-            <Stage4Feedback key="stage4" onBack={prevStage} onReset={reset} />
+
+          {role && role !== 'designer' && (
+            <RolePlaceholder key="role-placeholder" role={role} onBack={resetRole} />
           )}
         </AnimatePresence>
       </main>

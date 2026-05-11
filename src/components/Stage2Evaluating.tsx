@@ -40,10 +40,10 @@ export default function Stage2Evaluating({ onComplete }: Props) {
 
       <div className="space-y-6">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
-          Analyzing your design intent and expression...
+          Synthesizing TAB 2026 cognitive resonance...
         </h1>
         <p className="text-slate-500 text-lg font-medium max-w-md mx-auto">
-          Mapping values and detecting alignment
+          Mapping manuscript fragments to strategic value targets
         </p>
       </div>
 
@@ -60,25 +60,25 @@ export default function Stage2Evaluating({ onComplete }: Props) {
         <div className="flex flex-wrap justify-center gap-4">
           <div className="flex items-center gap-2 px-4 py-1.5 bg-white rounded-full shadow-sm border border-slate-100">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Scanning Tokens</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Cross-Fragment Syncing</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-1.5 bg-white rounded-full shadow-sm border border-slate-100">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Evaluating Hierarchy</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Resonance Mapping</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-1.5 bg-white rounded-full shadow-sm border border-slate-100 opacity-50">
             <div className="w-2 h-2 rounded-full bg-slate-300"></div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Contextualizing Intent</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Alignment Optimization</span>
           </div>
         </div>
       </div>
 
       <footer className="mt-24 flex flex-col items-center gap-4 opacity-40">
         <div className="flex items-center gap-2">
-          <span className="font-headline font-black text-sm tracking-tighter text-primary">VALUE LENS AI</span>
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-tighter">Evaluation Engine v2.4</span>
+          <span className="font-headline font-black text-sm tracking-tighter text-primary">COGNITIVE SYNC AI</span>
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-tighter">Strategic Engine v3.1</span>
         </div>
-        <p className="text-primary font-bold tracking-[0.2em] text-[9px] uppercase">Stage 3 of 4: Evaluation</p>
+        <p className="text-primary font-bold tracking-[0.2em] text-[9px] uppercase">Stage 3 of 4: Comparative Alignment</p>
       </footer>
 
       {/* Decorative Badges */}

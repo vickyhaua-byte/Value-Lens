@@ -1,13 +1,28 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
 
-export default function Header({ stage, onLogoClick }: { stage: number, onLogoClick: () => void }) {
+export default function Header({ 
+  stage, 
+  onLogoClick,
+  currentRole
+}: { 
+  stage: number, 
+  onLogoClick: () => void,
+  currentRole: string | null
+}) {
   const stageLabels = [
     'Discovery',
     'Inferred Intent',
     'Evaluation',
     'Strategic Analysis'
   ];
+
+  const roleLabels: Record<string, string> = {
+    designer: 'Designer',
+    lead: 'Project Lead',
+    organizer: 'Summit Organizer',
+    audience: 'Audience'
+  };
 
   return (
     <nav className="w-full shrink-0 sticky top-0 bg-white/70 backdrop-blur-md z-50 border-b border-slate-100">
@@ -24,12 +39,21 @@ export default function Header({ stage, onLogoClick }: { stage: number, onLogoCl
           </button>
         </div>
         <div className="flex items-center gap-4">
-          <div className="flex items-center bg-slate-100/80 backdrop-blur rounded-full px-3 py-1 gap-2 border border-slate-200/50">
-            <div className="w-2 h-2 bg-secondary rounded-full"></div>
-            <span className="text-[10px] font-bold text-slate-600 uppercase tracking-wider">
-              Lvl {stage}: {stageLabels[stage - 1]}
-            </span>
-          </div>
+          {currentRole && (
+            <div className={`flex items-center rounded-full px-3 py-1 gap-2 border ${
+              currentRole === 'designer' 
+                ? 'bg-slate-100/80 border-slate-200/50' 
+                : 'bg-primary/10 border-primary/20'
+            }`}>
+              <div className={`w-2 h-2 rounded-full ${currentRole === 'designer' ? 'bg-secondary' : 'bg-primary'}`}></div>
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${
+                currentRole === 'designer' ? 'text-slate-600' : 'text-primary'
+              }`}>
+                {roleLabels[currentRole] || currentRole}
+                {currentRole === 'designer' && stage > 0 && ` • Lvl ${stage}: ${stageLabels[stage - 1]}`}
+              </span>
+            </div>
+          )}
           <button className="w-8 h-8 bg-value-gold text-white rounded-full flex items-center justify-center shadow-md hover:scale-105 transition-transform">
             <Sparkles className="w-4 h-4 fill-current" />
           </button>

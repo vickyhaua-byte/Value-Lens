@@ -1,13 +1,14 @@
 import React from 'react';
-import { Map, Users, History, ArrowLeft, Swords } from 'lucide-react';
+import { Map, Users, History, ArrowLeft, Swords, Plus, FileText, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface Props {
   onNext: () => void;
+  onBack: () => void;
   key?: React.Key;
 }
 
-export default function Stage1Discovery({ onNext }: Props) {
+export default function Stage1Discovery({ onNext, onBack }: Props) {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -20,81 +21,104 @@ export default function Stage1Discovery({ onNext }: Props) {
           Current Objective
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-          Describe Your <span className="text-primary italic">Project</span>
+          Analyze Your <span className="text-primary italic">Manuscripts</span>
         </h1>
         <p className="text-slate-500 text-base font-medium max-w-lg mx-auto leading-relaxed">
-          Share your vision and define the objectives of your project.
+          Upload and organize your design fragments to define the cognitive landscape.
         </p>
       </header>
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-        <section className="bg-white rounded-2xl p-8 border border-primary/10 shadow-lg shadow-primary/5 relative group transition-all hover:shadow-xl">
-          <div className="absolute -top-4 left-8 w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-md transform -rotate-6 group-hover:rotate-0 transition-transform">
-            <Map className="w-5 h-5" />
+      <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+        <section className="bg-white rounded-2xl p-6 border border-slate-100 shadow-lg relative group transition-all hover:shadow-xl">
+          <div className="absolute -top-4 left-8 w-10 h-10 bg-value-gold rounded-xl flex items-center justify-center text-white shadow-md transform -rotate-3 group-hover:rotate-0 transition-transform">
+            <Sparkles className="w-5 h-5" />
           </div>
           <div className="mb-4 pt-2">
-            <h3 className="text-lg font-bold text-slate-800">Design Document</h3>
-            <p className="text-slate-400 text-xs font-medium">Visual asset for evaluation</p>
+            <h3 className="text-lg font-bold text-slate-800">Summit Essence</h3>
+            <p className="text-slate-400 text-xs font-medium">Annual baseline strategy</p>
           </div>
-          
-          <div className="relative group/file">
-            <div className="w-full bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl p-4 flex items-center gap-4 transition-all group-hover/file:border-primary/30">
-              <div className="w-20 h-28 rounded-lg overflow-hidden shadow-md border border-white shrink-0 relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Nature Cover" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://picsum.photos/seed/nature-science/200/300";
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/5 group-hover/file:bg-transparent transition-colors"></div>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-slate-700 truncate">nature_cover_final.png</p>
-                <p className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">3.4 MB • PNG Image</p>
-                <div className="mt-3 flex gap-2">
-                  <button className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] font-bold text-slate-500 hover:text-primary hover:border-primary transition-all">
-                    Replace
-                  </button>
-                  <button className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] font-bold text-slate-500 hover:text-red-500 hover:border-red-200 transition-all">
-                    Remove
-                  </button>
-                </div>
-              </div>
+          <div className="space-y-4">
+            <div>
+              <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1 block">Annual Theme</label>
+              <input 
+                type="text" 
+                defaultValue="Transformation & Beyond"
+                className="w-full bg-slate-50 border-none rounded-lg p-3 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-primary/20 transition-all"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1 block">Slogan</label>
+              <input 
+                type="text" 
+                defaultValue="Empowering Global Tech Leadership"
+                className="w-full bg-slate-50 border-none rounded-lg p-3 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-primary/20 transition-all"
+              />
             </div>
           </div>
         </section>
 
-        <section className="bg-white rounded-2xl p-8 border border-slate-100 shadow-lg relative group transition-all hover:shadow-xl">
-          <div className="absolute -top-4 left-8 w-10 h-10 bg-blue-400 rounded-xl flex items-center justify-center text-white shadow-md transform rotate-6 group-hover:rotate-0 transition-transform">
-            <Users className="w-5 h-5" />
-          </div>
-          <div className="mb-4 pt-2">
-            <h3 className="text-lg font-bold text-slate-800">Target Audience</h3>
-            <p className="text-slate-400 text-xs font-medium">Who is the primary audience for this design?</p>
-          </div>
-          <textarea 
-            className="w-full bg-slate-50 border-none rounded-xl p-4 text-sm font-medium focus:ring-2 focus:ring-primary/20 transition-all min-h-[120px] placeholder:text-slate-300 resize-none" 
-            placeholder="Who is the target for this project?"
-            defaultValue="Researchers, scientists, AI engineers, and academic readers with strong analytical backgrounds."
-          />
-        </section>
-
-        <section className="md:col-span-2 bg-white rounded-2xl p-8 border border-slate-100 shadow-lg relative group transition-all hover:shadow-xl">
-          <div className="absolute -top-4 left-8 w-10 h-10 bg-secondary rounded-xl flex items-center justify-center text-white shadow-md transform -rotate-3 group-hover:rotate-0 transition-transform">
+        <section className="bg-white rounded-2xl p-6 border border-slate-100 shadow-lg relative group transition-all hover:shadow-xl flex flex-col">
+          <div className="absolute -top-4 left-8 w-10 h-10 bg-secondary rounded-xl flex items-center justify-center text-white shadow-md transform rotate-3 group-hover:rotate-0 transition-transform">
             <History className="w-5 h-5" />
           </div>
           <div className="mb-4 pt-2">
-            <h3 className="text-lg font-bold text-slate-800">Project Description</h3>
-            <p className="text-slate-400 text-xs font-medium">What are the core objectives of your project?</p>
+            <h3 className="text-lg font-bold text-slate-800">Project Strategy</h3>
+            <p className="text-slate-400 text-xs font-medium">Core objectives for the cognitive stack</p>
           </div>
           <textarea 
-            className="w-full bg-slate-50 border-none rounded-xl p-4 text-sm font-medium focus:ring-2 focus:ring-primary/20 transition-all min-h-[100px] placeholder:text-slate-300 resize-none" 
+            className="flex-1 w-full bg-slate-50 border-none rounded-xl p-4 text-sm font-medium focus:ring-2 focus:ring-primary/20 transition-all min-h-[140px] placeholder:text-slate-300 resize-none" 
             placeholder="Tell the story of how it all began..."
-            defaultValue="This is a cover for a leading scientific publication, focusing on AI evaluation, interpretability, and predictive systems. It should communicate authority, innovation, and intellectual depth."
+            defaultValue="This collection of manuscripts represents the visual identity for TAB 2026. The goal is to evaluate which expression best aligns with our values of innovation, analytical rigor, and global tech leadership."
           />
+        </section>
+
+        <section className="bg-white rounded-2xl p-6 border border-primary/10 shadow-lg shadow-primary/5 relative group transition-all hover:shadow-xl">
+          <div className="absolute -top-4 left-8 w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-md transform -rotate-6 group-hover:rotate-0 transition-transform">
+            <FileText className="w-5 h-5" />
+          </div>
+          <div className="mb-4 pt-2 flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-bold text-slate-800">Manuscripts</h3>
+              <p className="text-slate-400 text-xs font-medium">Fragments for comparison</p>
+            </div>
+            <button className="p-1.5 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-all shadow-sm">
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
+          
+          <div className="space-y-3">
+            {/* Fragment 1 */}
+            <div className="group/file w-full bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 transition-all hover:border-primary/20 hover:bg-white hover:shadow-sm">
+              <div className="w-12 h-16 rounded shadow-sm border border-white shrink-0 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000" 
+                  alt="Fragment 1" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-bold text-slate-700 truncate">tech_v1.png</p>
+                <span className="px-1.5 py-0.5 bg-secondary/10 text-secondary text-[7px] font-black uppercase rounded mt-1 inline-block">Draft A</span>
+              </div>
+            </div>
+
+            {/* Fragment 2 */}
+            <div className="group/file w-full bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 transition-all hover:border-primary/20 hover:bg-white hover:shadow-sm">
+              <div className="w-12 h-16 rounded shadow-sm border border-white shrink-0 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" 
+                  alt="Fragment 2" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-bold text-slate-700 truncate">abstract_node.jpg</p>
+                <span className="px-1.5 py-0.5 bg-primary/10 text-primary text-[7px] font-black uppercase rounded mt-1 inline-block">Draft B</span>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
 
@@ -106,18 +130,21 @@ export default function Stage1Discovery({ onNext }: Props) {
           <div className="h-1 flex-1 bg-slate-200 rounded-full"></div>
         </div>
         <div className="flex items-center gap-4">
-          <button className="w-14 h-14 rounded-full border border-slate-200 bg-white text-slate-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all shadow-sm">
-            <ArrowLeft className="w-6 h-6" />
+          <button 
+            onClick={onBack}
+            className="w-14 h-14 rounded-full border border-slate-200 bg-white text-slate-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all shadow-sm group"
+          >
+            <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
           </button>
           <button 
             onClick={onNext}
             className="px-12 py-4 value-gradient rounded-full text-white font-bold text-sm shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 group uppercase tracking-widest"
           >
-            <span>Generate Value Intent</span>
+            <span>Analyze Cognitive Value</span>
             <Swords className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
-        <p className="text-primary font-bold tracking-[0.2em] text-[10px] uppercase opacity-70">Stage 1 of 4: The Discovery</p>
+        <p className="text-primary font-bold tracking-[0.2em] text-[10px] uppercase opacity-70">Stage 1 of 4: Fragment Discovery</p>
       </div>
     </motion.div>
   );
