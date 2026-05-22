@@ -197,9 +197,9 @@ export default function Stage3Results({ topic, targetAudience, strategy, onNext,
             initial={{ opacity: 0, x: -25 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -25 }}
-            className="lg:col-span-4 flex flex-col relative animate-fade-in"
+            className="lg:col-span-3 flex flex-col relative animate-fade-in"
           >
-            <div className="bg-white p-6 rounded-[32px] shadow-xl shadow-slate-200/40 border border-slate-100 flex-1 flex flex-col gap-6">
+            <div className="p-2 flex-1 flex flex-col gap-6">
               {/* Strategic Input Header & Content */}
               <div className="space-y-4">
                 <div className="flex justify-between items-center pb-2 border-b border-slate-100">
@@ -207,35 +207,22 @@ export default function Stage3Results({ topic, targetAudience, strategy, onNext,
                     <Brain className="text-primary w-5 h-5" />
                     <h3 className="text-sm font-black uppercase tracking-wider text-slate-800">Your Strategic Input</h3>
                   </div>
-                  <button 
-                    onClick={() => setShowPreviousInputs(!showPreviousInputs)}
-                    className="text-sm font-black uppercase tracking-widest text-primary hover:text-primary/80 bg-primary/5 px-2.5 py-1 rounded-[6px] cursor-pointer transition-all"
-                  >
-                    {showPreviousInputs ? "Hide" : "Show"}
-                  </button>
                 </div>
                 
-                {showPreviousInputs && (
-                  <motion.div 
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="space-y-4 pt-1 text-sm font-sans"
-                  >
-                    <div className="space-y-1">
-                      <span className="text-sm font-black uppercase text-slate-400 tracking-wider">TAB Topic</span>
-                      <p className="text-sm font-bold text-slate-700 leading-snug">{topic}</p>
-                    </div>
-                    <div className="space-y-1">
-                      <span className="text-sm font-black uppercase text-slate-400 tracking-wider">Target Audience</span>
-                      <p className="text-sm font-bold text-slate-700 leading-snug">{targetAudience}</p>
-                    </div>
-                    <div className="space-y-1">
-                      <span className="text-sm font-black uppercase text-slate-400 tracking-wider">Project Strategy</span>
-                      <p className="text-sm font-medium text-slate-500 leading-normal">{strategy}</p>
-                    </div>
-                  </motion.div>
-                )}
+                <div className="space-y-4 pt-1 text-sm font-sans">
+                  <div className="space-y-1">
+                    <span className="text-sm font-black uppercase text-slate-400 tracking-wider">TAB Topic</span>
+                    <p className="text-sm font-bold text-slate-700 leading-snug">{topic}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm font-black uppercase text-slate-400 tracking-wider">Target Audience</span>
+                    <p className="text-sm font-bold text-slate-700 leading-snug">{targetAudience}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm font-black uppercase text-slate-400 tracking-wider">Project Strategy</span>
+                    <p className="text-sm font-bold text-slate-700 leading-snug">{strategy}</p>
+                  </div>
+                </div>
               </div>
 
               <div className="border-t border-slate-100 my-1" />
@@ -278,7 +265,7 @@ export default function Stage3Results({ topic, targetAudience, strategy, onNext,
         )}
 
         {/* Right Column (Expanded/Contracted gracefully) */}
-        <div className={`relative ${showLeftPanel ? 'lg:col-span-8' : 'lg:col-span-12'} space-y-6 transition-all duration-300`}>
+        <div className={`relative ${showLeftPanel ? 'lg:col-span-9' : 'lg:col-span-12'} space-y-6 transition-all duration-300`}>
           {!showLeftPanel && (
             <button
               onClick={() => setShowLeftPanel(true)}

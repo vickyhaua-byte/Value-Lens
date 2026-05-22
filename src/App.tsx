@@ -183,6 +183,9 @@ export default function App() {
               {leadSubStage === 'synthesis' && (
                 <LeadContentSynthesis 
                   key="lead-synthesis"
+                  topic={topic}
+                  targetAudience={targetAudience}
+                  strategy={strategy}
                   onBack={() => setLeadSubStage('dashboard')}
                   onGenerateAsset={startFabricationWithContent}
                 />
