@@ -16,7 +16,10 @@ import {
   ArrowLeft,
   Swords,
   Brain,
-  Sparkles
+  Sparkles,
+  Globe,
+  Monitor,
+  RefreshCw
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
@@ -28,21 +31,40 @@ interface Props {
 }
 
 const radarData = [
-  { subject: 'Self-Direction', DraftA: 85, DraftB: 75, Target: 80 },
-  { subject: 'Stimulation', DraftA: 80, DraftB: 90, Target: 85 },
-  { subject: 'Hedonism', DraftA: 50, DraftB: 45, Target: 40 },
-  { subject: 'Achievement', DraftA: 95, DraftB: 85, Target: 90 },
-  { subject: 'Power', DraftA: 90, DraftB: 80, Target: 85 },
-  { subject: 'Security', DraftA: 70, DraftB: 85, Target: 75 },
-  { subject: 'Conformity', DraftA: 55, DraftB: 65, Target: 50 },
-  { subject: 'Tradition', DraftA: 40, DraftB: 60, Target: 45 },
-  { subject: 'Benevolence', DraftA: 15, DraftB: 40, Target: 30 },
-  { subject: 'Universalism', DraftA: 50, DraftB: 70, Target: 60 },
+  { subject: 'Self-Direction', DraftA: 85, DraftB: 75, DraftC: 90, DraftD: 60, Target: 80 },
+  { subject: 'Stimulation', DraftA: 80, DraftB: 90, DraftC: 70, DraftD: 95, Target: 85 },
+  { subject: 'Hedonism', DraftA: 50, DraftB: 45, DraftC: 30, DraftD: 80, Target: 40 },
+  { subject: 'Achievement', DraftA: 95, DraftB: 85, DraftC: 92, DraftD: 70, Target: 90 },
+  { subject: 'Power', DraftA: 90, DraftB: 80, DraftC: 85, DraftD: 65, Target: 85 },
+  { subject: 'Security', DraftA: 70, DraftB: 85, DraftC: 60, DraftD: 40, Target: 75 },
+  { subject: 'Conformity', DraftA: 55, DraftB: 65, DraftC: 45, DraftD: 30, Target: 50 },
+  { subject: 'Tradition', DraftA: 40, DraftB: 60, DraftC: 50, DraftD: 25, Target: 45 },
+  { subject: 'Benevolence', DraftA: 15, DraftB: 40, DraftC: 25, DraftD: 60, Target: 30 },
+  { subject: 'Universalism', DraftA: 50, DraftB: 70, DraftC: 40, DraftD: 85, Target: 60 },
 ];
 
 export default function Stage4Feedback({ onBack, onReset }: Props) {
   const [showDetails, setShowDetails] = useState(false);
   const [activeTab, setActiveTab] = useState<'value' | 'visual'>('value');
+  const [visibleDrafts, setVisibleDrafts] = useState({
+    DraftA: true,
+    DraftB: true,
+    DraftC: true,
+    DraftD: true,
+    Target: true
+  });
+
+  const toggleDraft = (key: keyof typeof visibleDrafts) => {
+    setVisibleDrafts(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const colors = {
+    DraftA: '#6366F1', // Indigo
+    DraftB: '#EC4899', // Pink
+    DraftC: '#10B981', // Emerald
+    DraftD: '#F59E0B', // Amber
+    Target: '#1e293b'  // Dark Slate
+  };
 
   return (
     <motion.div 
@@ -52,28 +74,32 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
       className="max-w-6xl mx-auto w-full flex flex-col gap-8 py-8"
     >
       {/* Summary Banner */}
-      <header className="relative rounded-3xl overflow-hidden bg-white shadow-2xl shadow-primary/5 border border-slate-100">
-        <div className="h-40 w-full relative">
-          <div className="absolute inset-0 flex">
-            <img 
-              className="w-1/2 h-full object-cover opacity-20 border-r border-white/50" 
-              src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000" 
-              referrerPolicy="no-referrer"
-            />
-            <img 
-              className="w-1/2 h-full object-cover opacity-20" 
-              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" 
-              referrerPolicy="no-referrer"
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent"></div>
+      <header className="relative rounded-[40px] overflow-hidden bg-white shadow-2xl shadow-primary/5 border border-slate-100 flex flex-col">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-4 bg-slate-50">
+          {[
+            { id: 'A' as const, key: 'DraftA' as const, name: 'tech_v1.png', img: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000' },
+            { id: 'B' as const, key: 'DraftB' as const, name: 'abstract_node.jpg', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000' },
+            { id: 'C' as const, key: 'DraftC' as const, name: 'global_network.jpg', img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000' },
+            { id: 'D' as const, key: 'DraftD' as const, name: 'silicon_edge.jpg', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000' },
+          ].map((f) => (
+            <button 
+              key={f.id} 
+              onClick={() => toggleDraft(f.key)}
+              className={`group relative aspect-video rounded-2xl overflow-hidden shadow-sm border border-slate-200 transition-all ${!visibleDrafts[f.key] ? 'opacity-30 grayscale blur-[1px]' : ''}`}
+            >
+              <img src={f.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2 px-3">
+                <span className="text-[9px] font-black text-white uppercase tracking-widest">{f.name} (Draft {f.id})</span>
+              </div>
+            </button>
+          ))}
         </div>
-        <div className="px-10 pb-10 -mt-12 relative z-10">
+        <div className="px-10 py-10 relative z-10 border-t border-slate-100">
           <div className="inline-block px-5 py-1.5 bg-white rounded-full border border-primary/20 text-primary font-bold text-[10px] tracking-widest uppercase shadow-sm mb-4">
             TAB 2026 Comparative Analysis
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight max-w-3xl leading-tight">
-            Draft A reinforces <span className="text-primary italic">Analytical Rigor</span>, while Draft B achieves higher <span className="text-secondary italic">Global Resonance.</span>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight max-w-4xl leading-tight">
+            Draft B and C reinforce <span className="text-primary italic">Pluralistic Synergy</span>, while Draft A maintains a path of <span className="text-primary italic">Traditional Authority.</span>
           </h1>
         </div>
       </header>
@@ -125,13 +151,23 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
                   </div>
                   <div className="flex gap-4">
                     <div className="text-right">
-                      <div className="text-2xl font-black text-primary tracking-tighter">84%</div>
-                      <div className="text-[8px] font-bold uppercase text-slate-400 tracking-widest">Draft A Index</div>
+                      <div className="text-xl font-black tracking-tighter" style={{ color: colors.DraftA }}>84%</div>
+                      <div className="text-[7px] font-bold uppercase text-slate-400 tracking-widest">A Index</div>
                     </div>
-                    <div className="w-px h-10 bg-slate-100" />
+                    <div className="w-px h-8 bg-slate-100" />
                     <div className="text-right">
-                      <div className="text-2xl font-black text-secondary tracking-tighter">91%</div>
-                      <div className="text-[8px] font-bold uppercase text-slate-400 tracking-widest">Draft B Index</div>
+                      <div className="text-xl font-black tracking-tighter" style={{ color: colors.DraftB }}>91%</div>
+                      <div className="text-[7px] font-bold uppercase text-slate-400 tracking-widest">B Index</div>
+                    </div>
+                    <div className="w-px h-8 bg-slate-100" />
+                    <div className="text-right">
+                      <div className="text-xl font-black tracking-tighter" style={{ color: colors.DraftC }}>88%</div>
+                      <div className="text-[7px] font-bold uppercase text-slate-400 tracking-widest">C Index</div>
+                    </div>
+                    <div className="w-px h-8 bg-slate-100" />
+                    <div className="text-right">
+                      <div className="text-xl font-black tracking-tighter" style={{ color: colors.DraftD }}>76%</div>
+                      <div className="text-[7px] font-bold uppercase text-slate-400 tracking-widest">D Index</div>
                     </div>
                   </div>
                 </div>
@@ -146,28 +182,45 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
                           tick={{ fill: '#94a3b8', fontSize: 8, fontWeight: 900 }}
                         />
                         <Radar
-                          name="Target Alignment"
-                          dataKey="Target"
-                          stroke="#cbd5e1"
-                          strokeWidth={1}
-                          strokeDasharray="4 4"
-                          fill="none"
+                          name="Target"
+                          dataKey={visibleDrafts.Target ? "Target" : "hidden_target"}
+                          stroke={colors.Target}
+                          strokeWidth={3}
+                          strokeDasharray="5 5"
+                          fill="transparent"
+                          fillOpacity={0}
                         />
                         <Radar
                           name="Draft A"
-                          dataKey="DraftA"
-                          stroke="#3366ff"
+                          dataKey={visibleDrafts.DraftA ? "DraftA" : "hidden_a"}
+                          stroke={colors.DraftA}
                           strokeWidth={2}
-                          fill="#3366ff"
-                          fillOpacity={0.1}
+                          fill={colors.DraftA}
+                          fillOpacity={0.05}
                         />
                         <Radar
                           name="Draft B"
-                          dataKey="DraftB"
-                          stroke="#00d68f"
+                          dataKey={visibleDrafts.DraftB ? "DraftB" : "hidden_b"}
+                          stroke={colors.DraftB}
                           strokeWidth={2}
-                          fill="#00d68f"
-                          fillOpacity={0.1}
+                          fill={colors.DraftB}
+                          fillOpacity={0.05}
+                        />
+                        <Radar
+                          name="Draft C"
+                          dataKey={visibleDrafts.DraftC ? "DraftC" : "hidden_c"}
+                          stroke={colors.DraftC}
+                          strokeWidth={2}
+                          fill={colors.DraftC}
+                          fillOpacity={0.05}
+                        />
+                        <Radar
+                          name="Draft D"
+                          dataKey={visibleDrafts.DraftD ? "DraftD" : "hidden_d"}
+                          stroke={colors.DraftD}
+                          strokeWidth={2}
+                          fill={colors.DraftD}
+                          fillOpacity={0.05}
                         />
                       </RadarChart>
                     </ResponsiveContainer>
@@ -200,19 +253,42 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
                   </div>
                 </div>
 
-                <div className="mt-10 flex gap-8 justify-center">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-primary" />
+                <div className="mt-10 flex flex-wrap gap-x-8 gap-y-4 justify-center">
+                  <button 
+                    onClick={() => toggleDraft('DraftA')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${visibleDrafts.DraftA ? 'bg-slate-50 border border-slate-200 shadow-sm' : 'opacity-30 grayscale'}`}
+                  >
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: colors.DraftA }} />
                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Manuscript A</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-secondary" />
+                  </button>
+                  <button 
+                    onClick={() => toggleDraft('DraftB')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${visibleDrafts.DraftB ? 'bg-slate-50 border border-slate-200 shadow-sm' : 'opacity-30 grayscale'}`}
+                  >
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: colors.DraftB }} />
                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Manuscript B</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-1 border-t border-dashed border-slate-300" />
+                  </button>
+                  <button 
+                    onClick={() => toggleDraft('DraftC')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${visibleDrafts.DraftC ? 'bg-slate-50 border border-slate-200 shadow-sm' : 'opacity-30 grayscale'}`}
+                  >
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: colors.DraftC }} />
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Manuscript C</span>
+                  </button>
+                  <button 
+                    onClick={() => toggleDraft('DraftD')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${visibleDrafts.DraftD ? 'bg-slate-50 border border-slate-200 shadow-sm' : 'opacity-30 grayscale'}`}
+                  >
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: colors.DraftD }} />
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Manuscript D</span>
+                  </button>
+                  <button 
+                    onClick={() => toggleDraft('Target')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${visibleDrafts.Target ? 'bg-slate-50 border border-slate-200 shadow-sm' : 'opacity-30 grayscale'}`}
+                  >
+                    <div className="w-3 h-1 border-t border-dashed" style={{ borderColor: colors.Target }} />
                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Summit Target</span>
-                  </div>
+                  </button>
                 </div>
               </section>
 
@@ -308,86 +384,106 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             exit={{ opacity: 0, x: -10 }}
             className="space-y-8"
           >
-            <div className="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Draft A Column */}
-              <div className="bg-slate-900 text-white rounded-[40px] p-10 shadow-2xl relative overflow-hidden flex flex-col">
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
-                        <Search className="w-5 h-5" />
+              <div className="bg-white text-slate-800 rounded-[32px] p-6 shadow-xl border border-slate-100 relative overflow-hidden flex flex-col group">
+                <div className="aspect-video w-full rounded-2xl overflow-hidden mb-6 border border-slate-100">
+                  <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                </div>
+                <div className="relative z-10 flex-1">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+                        <Search className="w-4 h-4" />
                       </div>
-                      <h3 className="text-xs font-black uppercase tracking-[0.3em] text-secondary">Manuscript A</h3>
+                      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-secondary">Draft A</h3>
                     </div>
-                    <span className="px-3 py-1 bg-white/10 rounded-full text-[8px] font-black uppercase tracking-[0.2em]">High Rigor</span>
                   </div>
                   
-                  <div className="space-y-8">
-                    <div className="space-y-4">
-                      <h4 className="text-xl font-black tracking-tight leading-tight">
-                        Intellectual <span className="text-primary">Dominance</span>
-                      </h4>
-                      <p className="text-slate-400 text-xs font-medium leading-relaxed">
-                        Strong geometric symmetry creates an impression of absolute authority and technological completion.
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <h4 className="text-lg font-black tracking-tight leading-tight text-primary">Structural Trust</h4>
+                      <p className="text-slate-500 text-[10px] font-medium leading-relaxed">
+                        Geometric symmetry creates a foundation of trust, but may lack the pluralistic energy required.
                       </p>
-                    </div>
-
-                    <div className="h-px bg-white/10 w-full" />
-
-                    <div className="space-y-4">
-                      <h5 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Observation Nodes</h5>
-                      <ul className="space-y-4">
-                        <li className="flex items-start gap-4">
-                          <div className="w-1 h-1 rounded-full bg-primary mt-2 shadow-[0_0_10px_rgba(51,102,255,0.5)]"></div>
-                          <span className="text-[11px] font-semibold text-slate-300 leading-relaxed">Rigid structure signals stability but lacks agility</span>
-                        </li>
-                        <li className="flex items-start gap-4">
-                          <div className="w-1 h-1 rounded-full bg-primary mt-2 shadow-[0_0_10px_rgba(51,102,255,0.5)]"></div>
-                          <span className="text-[11px] font-semibold text-slate-300 leading-relaxed">Monochromatic depth enhances perceived complexity</span>
-                        </li>
-                      </ul>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Draft B Column */}
-              <div className="bg-slate-800 text-white rounded-[40px] p-10 shadow-2xl relative overflow-hidden flex flex-col border border-primary/20">
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center text-secondary">
-                        <Sparkles className="w-5 h-5" />
+              <div className="bg-white text-slate-800 rounded-[32px] p-6 shadow-xl relative overflow-hidden flex flex-col border border-primary/20 group">
+                <div className="aspect-video w-full rounded-2xl overflow-hidden mb-6 border border-slate-100">
+                  <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                </div>
+                <div className="relative z-10 flex-1">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary">
+                        <Sparkles className="w-4 h-4" />
                       </div>
-                      <h3 className="text-xs font-black uppercase tracking-[0.3em] text-primary">Manuscript B</h3>
+                      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Draft B</h3>
                     </div>
-                    <span className="px-3 py-1 bg-primary/20 rounded-full text-[8px] font-black uppercase tracking-[0.2em]">High Resonance</span>
                   </div>
                   
-                  <div className="space-y-8">
-                    <div className="space-y-4">
-                      <h4 className="text-xl font-black tracking-tight leading-tight">
-                        Fluid <span className="text-secondary">Transformations</span>
-                      </h4>
-                      <p className="text-slate-400 text-xs font-medium leading-relaxed">
-                        Abstract flow and non-linear patterns signal a more dynamic, future-oriented and experimental approach.
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <h4 className="text-lg font-black tracking-tight leading-tight text-secondary">Open Flow</h4>
+                      <p className="text-slate-500 text-[10px] font-medium leading-relaxed">
+                        Abstract curves signal a more open, future-oriented approach with high synergy potential.
                       </p>
                     </div>
+                  </div>
+                </div>
+              </div>
 
-                    <div className="h-px bg-white/10 w-full" />
+              {/* Draft C Column */}
+              <div className="bg-white text-slate-800 rounded-[32px] p-6 shadow-xl border border-slate-100 relative overflow-hidden flex flex-col group">
+                <div className="aspect-video w-full rounded-2xl overflow-hidden mb-6 border border-slate-100">
+                  <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                </div>
+                <div className="relative z-10 flex-1">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
+                        <Globe className="w-4 h-4" />
+                      </div>
+                      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Draft C</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <h4 className="text-lg font-black tracking-tight leading-tight text-blue-500">Collaboration</h4>
+                      <p className="text-slate-500 text-[10px] font-medium leading-relaxed">
+                        Complex networking visualization perfectly captures the 'New Collaborative Synergy'.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                    <div className="space-y-4">
-                      <h5 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Observation Nodes</h5>
-                      <ul className="space-y-4">
-                        <li className="flex items-start gap-4">
-                          <div className="w-1 h-1 rounded-full bg-secondary mt-2 shadow-[0_0_10px_rgba(0,214,143,0.5)]"></div>
-                          <span className="text-[11px] font-semibold text-slate-300 leading-relaxed">Organic curves increase visual 'warmth' and accessibility</span>
-                        </li>
-                        <li className="flex items-start gap-4">
-                          <div className="w-1 h-1 rounded-full bg-secondary mt-2 shadow-[0_0_10px_rgba(0,214,143,0.5)]"></div>
-                          <span className="text-[11px] font-semibold text-slate-300 leading-relaxed">Chromatic variation aligns with TAB's diverse agenda</span>
-                        </li>
-                      </ul>
+              {/* Draft D Column */}
+              <div className="bg-white text-slate-800 rounded-[32px] p-6 shadow-xl relative overflow-hidden flex flex-col border border-orange-500/20 group">
+                <div className="aspect-video w-full rounded-2xl overflow-hidden mb-6 border border-slate-100">
+                  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                </div>
+                <div className="relative z-10 flex-1">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-500">
+                        <Monitor className="w-4 h-4" />
+                      </div>
+                      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500">Draft D</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <h4 className="text-lg font-black tracking-tight leading-tight text-orange-500">Tactile Diversity</h4>
+                      <p className="text-slate-500 text-[10px] font-medium leading-relaxed">
+                        Macro details signal the diverse material reality and pluralistic nature of tech implementation.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -422,10 +518,10 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { role: "Visual Critic", icon: Brush, color: "primary", text: "Draft A is a masterclass in grid-based power, but Draft B is what will stop a scrolling user or a passerby at a booth." },
-                  { role: "Strategy Lead", icon: MousePointer2, color: "secondary", text: "Manuscript B aligns 15% more effectively with our goal of 'Empowering the Many', reducing the perceived elite barrier." },
-                  { role: "Identity Agent", icon: Package, color: "primary", text: "The synergy of TAB 2026 requires a bridge between hard tech and human impact. B builds that bridge more effectively." },
-                  { role: "Alignment Bot", icon: ShieldCheck, color: "slate-800", text: "Draft A over-indexes on Achievement. For a summit, universal resonance (Draft B) is a higher priority meta-value." }
+                  { role: "Visual Critic", icon: Brush, color: "primary", text: "Draft C captures the 'Synergy' aspect most effectively through its interconnected visual rhythm." },
+                  { role: "Strategy Lead", icon: MousePointer2, color: "secondary", text: "Manuscripts B and C align 25% more effectively with our goal of 'Open Frontiers' than the rigid Draft A." },
+                  { role: "Identity Agent", icon: Package, color: "primary", text: "The synergy of TAB 2026 demands a pluralistic expression. B and C build that bridge with intentional openness." },
+                  { role: "Alignment Bot", icon: ShieldCheck, color: "slate-800", text: "Draft C indexes highest on Universalism and Synergy, making it the superior choice for a collaborative summit." }
                 ].map((agent, i) => (
                   <div key={i} className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 relative overflow-hidden group">
                     <div className={`text-[10px] font-black uppercase text-${agent.color} mb-4 tracking-[0.2em]`}>{agent.role}</div>
@@ -460,7 +556,6 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
           <div className="h-1 flex-1 bg-primary rounded-full"></div>
           <div className="h-1 flex-1 bg-primary rounded-full"></div>
           <div className="h-1 flex-1 bg-primary rounded-full"></div>
-          <div className="h-1 flex-1 bg-primary rounded-full"></div>
         </div>
         <div className="flex items-center gap-4">
           <button 
@@ -473,11 +568,11 @@ export default function Stage4Feedback({ onBack, onReset }: Props) {
             onClick={onReset}
             className="px-12 py-4 value-gradient rounded-full text-white font-bold text-sm shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 group uppercase tracking-widest"
           >
-            <span>Reset Analysis</span>
-            <Swords className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <span>Return to Workspace</span>
+            <RefreshCw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
           </button>
         </div>
-        <p className="text-primary font-bold tracking-[0.2em] text-[10px] uppercase opacity-70">Stage 4 of 4: Strategic Comparison Logic</p>
+        <p className="text-primary font-bold tracking-[0.3em] text-[10px] uppercase opacity-70">Visual Evaluation Complete</p>
       </div>
     </motion.div>
   );

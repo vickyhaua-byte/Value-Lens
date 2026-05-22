@@ -1,115 +1,169 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Brush, Users, Calendar, Footprints, ArrowRight } from 'lucide-react';
+import { 
+  Brush, 
+  Users, 
+  Calendar, 
+  Footprints, 
+  ArrowRight,
+  Target,
+  FileText,
+  Sparkles,
+  Layers,
+  Map,
+  Compass
+} from 'lucide-react';
 
-interface RoleCardProps {
+interface EntryButtonProps {
   icon: React.ElementType;
   title: string;
   description: string;
   onClick: () => void;
-  primary?: boolean;
-  key?: React.Key;
+  variant?: 'primary' | 'secondary';
 }
 
-function RoleCard({ icon: Icon, title, description, onClick, primary }: RoleCardProps) {
+function EntryButton({ icon: Icon, title, description, onClick, variant = 'secondary' }: EntryButtonProps) {
   return (
     <motion.button
-      whileHover={{ y: -8, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className={`relative group p-8 rounded-3xl border text-left transition-all ${
-        primary 
-          ? 'bg-white border-primary/20 shadow-xl shadow-primary/5 hover:border-primary' 
-          : 'bg-slate-50/50 border-slate-100 hover:bg-white hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5'
+      className={`w-full group relative p-5 rounded-2xl border text-left transition-all ${
+        variant === 'primary' 
+          ? 'bg-primary border-primary shadow-lg shadow-primary/10' 
+          : 'bg-white border-slate-100 hover:border-primary/30 shadow-sm hover:shadow-md'
       }`}
     >
-      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-colors ${
-        primary ? 'bg-primary text-white' : 'bg-white text-slate-400 group-hover:bg-primary/10 group-hover:text-primary shadow-sm'
-      }`}>
-        <Icon className="w-7 h-7" />
-      </div>
-      <h3 className="text-xl font-extrabold text-slate-800 mb-2">{title}</h3>
-      <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6">
-        {description}
-      </p>
-      <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-        Enter Workspace <ArrowRight className="w-3 h-3" />
+      <div className="flex items-center gap-4">
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
+          variant === 'primary' ? 'bg-white/20 text-white' : 'bg-slate-50 text-slate-400 group-hover:bg-primary/10 group-hover:text-primary'
+        }`}>
+          <Icon className="w-5 h-5" />
+        </div>
+        <div className="flex-1">
+          <h4 className={`text-sm font-black tracking-tight ${
+            variant === 'primary' ? 'text-white' : 'text-slate-800'
+          }`}>{title}</h4>
+          
+          <p className={`text-[10px] font-medium pt-1 leading-tight ${
+            variant === 'primary' ? 'text-white/70' : 'text-slate-400'
+          }`}>
+            {description}
+          </p>
+        </div>
+        <ArrowRight className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${
+          variant === 'primary' ? 'text-white/40' : 'text-slate-200 group-hover:text-primary'
+        }`} />
       </div>
     </motion.button>
   );
 }
 
 interface Props {
-  onSelectRole: (role: string) => void;
-  key?: React.Key;
+  onNavigate: (role: any, options?: any) => void;
 }
 
-export default function RoleSelection({ onSelectRole }: Props) {
-  const roles = [
-    {
-      id: 'designer',
-      icon: Brush,
-      title: 'Designer',
-      description: 'Evaluate visual assets against core values. Map intent to expression through rigorous diagnostic tools.',
-      primary: true
-    },
-    {
-      id: 'lead',
-      icon: Users,
-      title: 'Project Lead',
-      description: 'Oversee the alignment of design objectives with business goals. Ensure strategic resonance across workstreams.',
-    },
-    {
-      id: 'organizer',
-      icon: Calendar,
-      title: 'Summit Organizer',
-      description: 'Coordinate the identity and cognitive synergy of the event. Track alignment across multiple stakeholder groups.',
-    },
-    {
-      id: 'audience',
-      icon: Footprints,
-      title: 'Audience',
-      description: 'Experience the shared vision. Engage with the cognitive artifacts and provide feedback on perceived resonance.',
-    }
-  ];
-
+export default function RoleSelection({ onNavigate }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="max-w-6xl w-full"
+      className="max-w-6xl w-full space-y-12"
     >
-      <div className="text-center mb-16 space-y-4">
-        <div className="inline-block px-4 py-1.5 bg-primary/5 rounded-full border border-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-4">
-          Cognitive Collaboration Platform
+      <div className="text-center space-y-2">
+        <div className="inline-block px-3 py-1 bg-primary/5 rounded-full border border-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.3em] mb-2">
+           TAB 2026 Summit Platform
         </div>
-        <h1 className="text-5xl font-black text-slate-900 tracking-tight">
-          Welcome <span className="text-primary italic">TAB 2026</span>
+        <h1 className="text-4xl font-black text-slate-900 tracking-tighter">
+           TAB 2026 Cognition Collaboration System
         </h1>
-        <p className="text-slate-500 text-lg font-bold uppercase tracking-[0.2em]">
-          Select Your Perspective
+        <p className="text-slate-500 text-sm font-medium">
+           Connecting Research, Creativity, and Organizational Intelligence
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {roles.map(({ id, ...role }) => (
-          <RoleCard 
-            key={id}
-            {...role}
-            onClick={() => onSelectRole(id)}
-          />
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Designer Role */}
+        <div className="space-y-6">
+           <div className="flex items-center gap-3 px-2">
+              <Brush className="w-5 h-5 text-slate-300" />
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Designer</h3>
+           </div>
+           <div className="space-y-3">
+              <EntryButton 
+                icon={Target}
+                title="Inspiration Generator"
+                description="Asset diagnostics & Core value mapping."
+                onClick={() => onNavigate('designer', { stage: 1, designerSub: 'baseline' })}
+              />
+              <EntryButton 
+                icon={FileText}
+                title="Creative Evaluation"
+                description="Drafting engine & Visual iteration."
+                onClick={() => onNavigate('designer', { stage: 1, designerSub: 'manuscripts' })}
+              />
+           </div>
+        </div>
+
+        {/* Project Lead */}
+        <div className="space-y-6">
+           <div className="flex items-center gap-3 px-2">
+              <Users className="w-5 h-5 text-slate-300" />
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Project Lead</h3>
+           </div>
+           <div className="space-y-3">
+              <EntryButton 
+                icon={Sparkles}
+                title="Knowledge Translation"
+                description="Cross-disciplinary content orchestration."
+                onClick={() => onNavigate('lead', { leadSub: 'synthesis' })}
+              />
+              <EntryButton 
+                icon={Layers}
+                title="Asset Generator"
+                description="Strategic generation & Printing prep."
+                onClick={() => onNavigate('lead', { leadSub: 'fabrication' })}
+              />
+           </div>
+        </div>
+
+        {/* Organizer */}
+        <div className="space-y-6">
+           <div className="flex items-center gap-3 px-2">
+              <Calendar className="w-5 h-5 text-slate-300" />
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Organizer</h3>
+           </div>
+           <div className="space-y-3">
+              <EntryButton 
+                icon={Map}
+                title="Organizer Console"
+                description="Agenda planning & Physical fabrication."
+                onClick={() => onNavigate('organizer', { organizerSub: 'agenda' })}
+              />
+           </div>
+        </div>
+
+        {/* Audience */}
+        <div className="space-y-6">
+           <div className="flex items-center gap-3 px-2">
+              <Compass className="w-5 h-5 text-slate-300" />
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Audience</h3>
+           </div>
+           <div className="space-y-3">
+              <EntryButton 
+                icon={Footprints}
+                title="Personalized Journey"
+                description="Personalized maps & Research journey."
+                onClick={() => onNavigate('audience', { audienceSub: 'dashboard' })}
+              />
+           </div>
+        </div>
       </div>
 
-      <div className="mt-20 pt-10 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6 opacity-50">
-        <div className="flex items-center gap-4">
-          <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Powered by</div>
-          <div className="px-4 py-1.5 bg-slate-100 rounded-lg text-[10px] font-bold text-slate-600">Cognitive Alignment Engine v3.0</div>
-        </div>
-        <div className="text-[10px] font-bold text-slate-400">
-          SECURE PROTOCOL • MULTI-STAKEHOLDER SYNC ENABLED
-        </div>
+      <div className="pt-8 flex items-center justify-center gap-6 opacity-30">
+        <div className="w-12 h-px bg-slate-300" />
+        <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em]">MSRA SYNERGY // 2026</div>
+        <div className="w-12 h-px bg-slate-300" />
       </div>
     </motion.div>
   );

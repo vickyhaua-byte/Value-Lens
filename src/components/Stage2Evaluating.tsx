@@ -66,9 +66,13 @@ export default function Stage2Evaluating({ onComplete }: Props) {
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Resonance Mapping</span>
           </div>
-          <div className="flex items-center gap-2 px-4 py-1.5 bg-white rounded-full shadow-sm border border-slate-100 opacity-50">
-            <div className="w-2 h-2 rounded-full bg-slate-300"></div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Alignment Optimization</span>
+          <div className="flex items-center gap-2 px-4 py-1.5 bg-white rounded-full shadow-sm border border-slate-100">
+            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Temporal Alignment</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-1.5 bg-white rounded-full shadow-sm border border-slate-100">
+            <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Strategic Weighting</span>
           </div>
         </div>
       </div>
@@ -78,7 +82,7 @@ export default function Stage2Evaluating({ onComplete }: Props) {
           <span className="font-headline font-black text-sm tracking-tighter text-primary">COGNITIVE SYNC AI</span>
           <span className="text-xs font-bold text-slate-400 uppercase tracking-tighter">Strategic Engine v3.1</span>
         </div>
-        <p className="text-primary font-bold tracking-[0.2em] text-[9px] uppercase">Stage 3 of 4: Comparative Alignment</p>
+        <p className="text-primary font-bold tracking-[0.2em] text-[9px] uppercase">Stage 4 of 5: Comparative Alignment</p>
       </footer>
 
       {/* Decorative Badges */}

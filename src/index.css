@@ -55,3 +55,23 @@
   animation: progress-shimmer 2s infinite;
 }
 
+.markdown-body h2 {
+  @apply text-xl font-black text-slate-800 mb-4 mt-6 first:mt-0;
+}
+
+.markdown-body p {
+  @apply text-sm text-slate-600 font-medium leading-relaxed mb-4;
+}
+
+.markdown-body ul {
+  @apply list-disc pl-6 mb-4 space-y-1;
+}
+
+.markdown-body li {
+  @apply text-sm text-slate-600 font-medium;
+}
+
+.markdown-body strong {
+  @apply font-black text-secondary uppercase tracking-tight;
+}
+
